@@ -22,7 +22,7 @@ def get_string():
 def is_palindrome(user_string):
     user_string = re.sub(r'[^A-Za-z]', '', user_string)
     user_string = user_string.lower()
-    reversed_string = reverse_string(user_string)
+    reversed_string = reverse_string_loop(user_string)
     if user_string == reversed_string:
         return True
     else:
@@ -34,17 +34,20 @@ def reverse_string(user_string):
         return ''
     return reverse_string(user_string[1:]) + user_string[0]
 
+def reverse_string_loop(user_string):
+
+    for value in user_string:
+        if len(user_string) == 0:
+            return ''
+        return user_string[1:] + user_string[0]
 
 def main():
-    clear()
     user_string = get_string()
 
     if is_palindrome(user_string):
-        clear()
-        print("Yep,'{}'is a palindrome!".format(user_string))
+        print("Yep,", user_string, "is a palindrome!")
     else:
-        clear()
-        print("Sorry,'{}'is not a palindrome.".format(user_string))
+        print("Sorry,", user_string, "is not a palindrome.")
 
     again = input("Run again? [y/N] \n")
     if again.lower() == 'y':
