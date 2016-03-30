@@ -35,18 +35,21 @@ def reverse_string(user_string):
     return reverse_string(user_string[1:]) + user_string[0]
 
 def reverse_string_loop(user_string):
-
+    reversed_list = []
     for value in user_string:
-        if len(user_string) == 0:
-            return ''
-        return user_string[1:] + user_string[0]
+        reversed_list.insert(0, value)
+
+    return "".join(reversed_list)
 
 def main():
+    clear()
     user_string = get_string()
 
     if is_palindrome(user_string):
+        clear()
         print("Yep,", user_string, "is a palindrome!")
     else:
+        clear()
         print("Sorry,", user_string, "is not a palindrome.")
 
     again = input("Run again? [y/N] \n")
