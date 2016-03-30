@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 
 def clear():
     if os.name == 'nt':
@@ -8,43 +9,31 @@ def clear():
         os.system('clear')
 
 
-def get_file():
-    string_file = input("What do you want to check?\n")
-
-    for value in string_file:
-        if value.isdigit():
-            print("You must not be from around here. We only accept letters and symbols in these parts.\n >")
-            return get_string()
-
-    return string_file
-
-
-def is_palindrome(string_file):
-    string_file = re.sub(r'[^A-Za-z]', '', string_file)
-    string_file = string_file.lower()
-    reversed_string = reverse_string(string_file)
-    if string_file == reversed_string:
+def is_palindrome(line):
+    line = re.sub(r'[^A-Za-z]', '', line)
+    line = line.lower()
+    reversed_string = reverse_string(line)
+    if line == reversed_string:
         return True
     else:
         return False
 
 
-def reverse_string(string_file):
-    if len(string_file) == 0:
+def reverse_string(line):
+    if len(line) == 0:
         return ''
-    return reverse_string(string_file[1:]) + string_file[0]
+    return reverse_string(line[1:]) + line[0]
 
 
 def main():
     clear()
-    string_file = get_string()
 
-    if is_palindrome(string_file):
-        clear()
-        print("Yep,'{}'is a palindrome!".format(string_file))
-    else:
-        clear()
-        print("Sorry,'{}'is not a palindrome.".format(string_file))
+    with open(sys.argv[1], 'r') as f:
+        for line in f:
+            if is_palindrome(line):
+                print("Yep,'{}'is a palindrome!".format(line))
+            else:
+                print("Sorry,'{}'is not a palindrome.".format(line))
 
     again = input("Run again? [y/N] \n")
     if again.lower() == 'y':
